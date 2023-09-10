@@ -1,4 +1,4 @@
-FROM ubuntu:focal-20230801
+FROM ubuntu:latest
 
 LABEL name="httpbin"
 LABEL description="A simple HTTP service."
@@ -10,7 +10,7 @@ RUN apt update -y && apt install python3-pip libssl-dev libffi-dev git -y && pip
 
 ADD Pipfile Pipfile.lock /httpbin/
 WORKDIR /httpbin
-RUN /bin/bash -c "pip3 install --no-cache-dir -r <(pipenv lock -r)"
+RUN /bin/bash -c "pipenv sync"
 
 ADD . /httpbin
 RUN pip3 install --no-cache-dir /httpbin
